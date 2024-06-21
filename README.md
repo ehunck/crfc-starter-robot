@@ -36,7 +36,7 @@ Install Prerequisites:
 ```bash
 mkdir build
 cd build
-cmake ..
+cmake -DPICO_BOARD=pico_w -DPICO_SDK_PATH=../pico-sdk ../
 make main_app
 ```
 
