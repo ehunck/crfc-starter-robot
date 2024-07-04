@@ -33,5 +33,11 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build
+    
+    - name: Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: uf2-binary
+        path: ${{github.workspace}}/build/main_app.uf2
 
 
