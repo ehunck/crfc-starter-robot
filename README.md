@@ -2,6 +2,12 @@
 
 ## Overview
 
+This firmware repository supports the Raspberry Pi Pico W and the Playstation Dualshock 4 controller.
+
+![pi_pico_w](documents/images/pi_pico_w.jpg)
+
+![ds4](documents/images/ds4.jpg)
+
 ## Pre-Requisites
 
 ### Windows & Linux
