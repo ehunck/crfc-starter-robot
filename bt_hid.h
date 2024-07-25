@@ -1,3 +1,6 @@
+#ifndef _BT_HID_H_
+#define _BT_HID_H_
+
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright (c) 2023 Brian Starkey <stark3y@gmail.com>
 
@@ -20,3 +23,6 @@ struct bt_hid_state {
 // Get the latest controller state
 void bt_hid_get_latest(struct bt_hid_state *dst);
 bool bt_hid_is_connected(void);
+
+
+#endif // _BT_HID_H_

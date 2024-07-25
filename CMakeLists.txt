@@ -18,6 +18,7 @@ pico_sdk_init()
 add_executable(main_app
     main_app.c
     bt_hid.c
+    motor_driver.c
 )
 
 pico_enable_stdio_uart(main_app 1)

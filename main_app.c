@@ -9,6 +9,8 @@
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
 
+#include "motor_driver.h"
+
 #include "bt_hid.h"
 
 // These magic values are just taken from M0o+, not calibrated for
@@ -246,11 +248,33 @@ void chassis_set(struct chassis *chassis, int8_t linear, int8_t rot)
 	chassis_set_raw(chassis, l, r);
 }
 
+static void update_motor_driver_from_control_input( struct halfslice_chassis* chassis, struct bt_hid_state* state )
+{
+
+	printf("buttons: %04x, l: %d,%d, r: %d,%d, l2,r2: %d,%d hat: %d\n",
+				state->buttons, state->lx, state->ly, state->rx, state->ry,
+				state->l2, state->r2, state->hat);
+
+	// int8_t linear_scaling = 
+
+	// motor_driver_set_speed( float val );
+	// motor_driver_set_direction( bool forward );
+
+	float speed_scale = 1.0;
+	int8_t linear = clamp8(-(state->ly - 128) * speed_scale);
+	int8_t rot = clamp8(-(state->rx - 128));
+	halfslice_chassis_set( chassis, linear, rot);
+}
+
+enum SystemStates
+{
+	SystemState_DISCONNECTED,
+	SystemState_CONNECTED,
+	// Add additional state here...
+};
+
 void main(void) {
 	stdio_init_all();
-
-	sleep_ms(1000);
-	printf("Hello\n");
 
 	multicore_launch_core1(bt_main);
 	// Wait for init (should do a handshake with the fifo here?)
@@ -261,21 +285,62 @@ void main(void) {
 	struct halfslice_chassis chassis = { 0 };
 	halfslice_chassis_init(&chassis, 19, 17, 16, 15);
 
-	struct bt_hid_state state;
-	for ( ;; ) {
-		sleep_ms(10);
-		bt_hid_get_latest(&state);
+	enum SystemStates next_system_state = SystemState_DISCONNECTED;
+	enum SystemStates system_state = SystemState_DISCONNECTED;
+	enum SystemStates prev_system_state = SystemState_DISCONNECTED;
 
-		if(bt_hid_is_connected())
+	struct bt_hid_state controller_state = {0};
+	while ( 1 ) 
+	{
+		const bool system_state_entered = ( system_state != prev_system_state );
+		bt_hid_get_latest(&controller_state);
+		switch( system_state )
 		{
-			printf("buttons: %04x, l: %d,%d, r: %d,%d, l2,r2: %d,%d hat: %d\n",
-				state.buttons, state.lx, state.ly, state.rx, state.ry,
-				state.l2, state.r2, state.hat);
+			case 	SystemState_DISCONNECTED:
+				// Disconnected state
+				if( system_state_entered )
+				{
+					// When entering the state run these functions 1 time.
+					// Set the motors to a safe state.
+					motor_driver_disable();
+				}
+				// Run the following continuously while in the disconnected mode.
+				// Check to see if we are connected.
+				if( bt_hid_is_connected() )
+				{
+					// Transition to the Connected system state
+					next_system_state = SystemState_CONNECTED;
+				}
+				break;
+			case	SystemState_CONNECTED:
+				// Connected state
+				if( system_state_entered )
+				{
+					// When entering the state run these functions 1 time.
+					// Set the motors to a safe state.
+					motor_driver_enable();
+				}
+				// Check to see if we are connected.
+				// Handle the latest controller input.
+				if( bt_hid_is_connected() )
+				{
+					// handle commands and update the motor.
+					update_motor_driver_from_control_input(&chassis, &controller_state);
+				}
+				else
+				{
+					// The system is not connected.
+					// Transition to the Disconnected system state
+					next_system_state = SystemState_DISCONNECTED;
+				}
+				break;
+			default:
+				break;
 		}
+		prev_system_state = system_state;
+		system_state = next_system_state;
 
-		// float speed_scale = 1.0;
-		// int8_t linear = clamp8(-(state.ly - 128) * speed_scale);
-		// int8_t rot = clamp8(-(state.rx - 128));
-		// halfslice_chassis_set(&chassis, linear, rot);
+		// regulate the update rate to ~100 Hz
+		sleep_ms(10);
 	}
 }
