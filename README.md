@@ -73,6 +73,9 @@ cmake --build .
 
 You now have `main_app.elf` to load via a debugger, or `main_app.uf2` that can be installed and run on your Raspberry Pi Pico via drag and drop.
 
+To upload via USB, hold down the BOOTSEL button while plugging it in. This will mount a device called RPI-RP2 to copy your UF2 file into. See
+https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html for more detailed instructions on managing the device.
+
 ## Develop with VSCode
 
 This is optional, but VSCode can be used to edit and build the project.
