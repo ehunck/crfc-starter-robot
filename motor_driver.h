@@ -4,9 +4,8 @@
 #include <stdbool.h>
 
 void motor_driver_setup(void);
-void motor_driver_enable(void);
-void motor_driver_disable(void);
-void motor_driver_set_speed( float val );
-void motor_driver_set_direction( bool forward );
+void motor_driver_stop(void);
+void motor_driver_set_left( int val );
+void motor_driver_set_right( int val );
 
 #endif // _MOTOR_DRIVER_H_
