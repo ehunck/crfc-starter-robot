@@ -27,9 +27,9 @@ Install homebrew.
 Launch the terminal an use homebrew to install the build tools
 
 ```bash
+brew install zstd
 brew install cmake
-brew tap ArmMbed/homebrew-formulae
-brew install arm-none-eabi-gcc
+brew install --cask gcc-arm-embedded
 ```
 
 ## Project Setup
