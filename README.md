@@ -84,3 +84,24 @@ Select the toolchain which should be `gcc-arm-none-eabi`.
 
 Run `>CMake: Build Target` to select the build target.
 Select the target which should be `main_app`.
+
+
+## Hardware
+
+The pinout for the robot motor driver can be found in the `pin_definitions.h`. Here is the latest.
+
+```c
+// LEFT MOTOR DRIVER
+#define PIN_LEFT_MOTOR_INA  6   // GPO
+#define PIN_LEFT_MOTOR_INB  7   // GPO
+#define PIN_LEFT_MOTOR_PWM  8   // PWM4 A 
+
+// RIGHT MOTOR DRIVER
+#define PIN_RIGHT_MOTOR_INA 10  // GPO
+#define PIN_RIGHT_MOTOR_INB 11  // GPO
+#define PIN_RIGHT_MOTOR_PWM 12  // PWM6 A 
+```
+
+After powering on the robot, the LED on the pico-w will be flashing.  This indicates that the controller is not connected.
+
+Simultaneously press and hold the Playstation Center Button and the Share Button.  The controller will go into the fast flashing mode.  Once the pico-w finds the controller, it's LED will go solid.
