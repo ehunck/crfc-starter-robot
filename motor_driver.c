@@ -36,6 +36,7 @@ void motor_driver_setup(void)
     // PWM Left 
     gpio_set_function(PIN_LEFT_MOTOR_PWM, GPIO_FUNC_PWM);
     left_pwm_slice_num = pwm_gpio_to_slice_num(PIN_LEFT_MOTOR_PWM);
+    pwm_set_clkdiv_int_frac(left_pwm_slice_num, 61, 0);
     pwm_set_wrap(left_pwm_slice_num, 128);
     pwm_set_gpio_level(PIN_LEFT_MOTOR_PWM, 0);
     pwm_set_enabled(left_pwm_slice_num, true);
@@ -43,6 +44,7 @@ void motor_driver_setup(void)
     // PWM Right
     gpio_set_function(PIN_RIGHT_MOTOR_PWM, GPIO_FUNC_PWM);
     right_pwm_slice_num = pwm_gpio_to_slice_num(PIN_RIGHT_MOTOR_PWM);
+    pwm_set_clkdiv_int_frac(right_pwm_slice_num, 61, 0);
     pwm_set_wrap(right_pwm_slice_num, 128);
     pwm_set_gpio_level(PIN_RIGHT_MOTOR_PWM, 0);
     pwm_set_enabled(right_pwm_slice_num, true);
