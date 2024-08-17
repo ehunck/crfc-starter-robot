@@ -12,9 +12,11 @@ This firmware repository supports the Raspberry Pi Pico W and the Playstation Du
 
 ### Windows & Linux
 
-Install Windows Subsystem for Linux (wsl).
+Install Windows Subsystem for Linux (wsl). The instructions for installing WSL are here: [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
-Launch WSL and install the following:
+In Windows launch WSL or in Linux launch a terminal.  
+
+Run the following commands to install the necessary prerequisites.
 
 ```bash
 sudo apt install git cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
@@ -22,7 +24,7 @@ sudo apt install git cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-a
 
 ### MacOS
 
-Install homebrew.
+Install homebrew.  Go to the homebrew [website](https://brew.sh/) and run the install command.
 
 Launch the terminal an use homebrew to install the build tools
 
@@ -56,10 +58,6 @@ This repository was setup by following the instructions here:
 
 https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html#quick-start-your-own-project
 
-Install Prerequisites:
-
-....
-
 ## Build the Project
 
 ```bash
@@ -88,7 +86,6 @@ Select the toolchain which should be `gcc-arm-none-eabi`.
 Run `>CMake: Build Target` to select the build target.
 Select the target which should be `main_app`.
 
-
 ## Hardware
 
 The pinout for the robot motor driver can be found in the `pin_definitions.h`. Here is the latest.
@@ -108,3 +105,19 @@ The pinout for the robot motor driver can be found in the `pin_definitions.h`. H
 After powering on the robot, the LED on the pico-w will be flashing.  This indicates that the controller is not connected.
 
 Simultaneously press and hold the Playstation Center Button and the Share Button.  The controller will go into the fast flashing mode.  Once the pico-w finds the controller, it's LED will go solid.
+
+## Contributing
+
+You can fork this porject and use it as a start for your own robot platforms.
+
+If you make improvements to this, feel free to open an issue and submit a pull request!  The maintainers will be happy to accept these contributions and merge your changes in to the repo as long as the functionality doesn't break the existing functionality.
+
+"Knock-off" Dual Shock 4 PS4 controllers may or may not work with this project.  Right now, only "official" controllers are supported.  Contributions related to supporting alternative "knock-off" controllers will be accepted so long as they don't break compatibility with the existing supported controllers.
+
+If you find a bug, please open an issue to report it! The more detail the better. Help us find the solution as well!
+
+### New Features Not Yet Implemented
+
+- Simple settings storage for things like calibration and tuning values.
+- Store the remote address string of the controller in the settings to allow the robot to automatically connect on startup.
+- Add PWM servo output control that maps to the triggers on the controller.  These can be used as auxiliary actuators.
