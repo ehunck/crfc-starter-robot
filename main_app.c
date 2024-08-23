@@ -68,8 +68,8 @@ static void update_motor_driver_from_control_input( struct bt_hid_state* state )
 		{
 			// rotate in place
 			// This handles both rotate left and right as left will be negative and right positive
-			left_output = swerve_right_rate / 2;
-			right_output = -1*swerve_right_rate / 2;
+			left_output = swerve_right_rate;
+			right_output = -1*swerve_right_rate;
 		}
 		// otherwise no rotation
 	}
