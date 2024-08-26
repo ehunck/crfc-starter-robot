@@ -36,7 +36,7 @@ static void update_motor_driver_from_control_input( struct bt_hid_state* state )
 	
 	int left_output = forward_speed;
 	int right_output = forward_speed;
-	if( forward_speed > 0 )
+	if( forward_speed > 20 )
 	{
 		if( swerve_right_rate > 0 )
 		{
@@ -49,7 +49,7 @@ static void update_motor_driver_from_control_input( struct bt_hid_state* state )
 			left_output = clamp(left_output, 0, 128);
 		}
 	}
-	else if( forward_speed < 0 )
+	else if( forward_speed < -20 )
 	{
 		if( swerve_right_rate > 0 )
 		{
@@ -64,14 +64,19 @@ static void update_motor_driver_from_control_input( struct bt_hid_state* state )
 	}
 	else
 	{
-		if( swerve_right_rate != 0 )
+		if( swerve_right_rate >= 20 || swerve_right_rate <= -20 )
 		{
 			// rotate in place
 			// This handles both rotate left and right as left will be negative and right positive
 			left_output = swerve_right_rate;
 			right_output = -1*swerve_right_rate;
-		}
+		} 
+		else 
+		{
 		// otherwise no rotation
+			left_output = 0;
+			right_output = 0;
+		}
 	}
 
 	left_output = clamp(left_output, -127, 128);
