@@ -40,12 +40,12 @@ static void update_motor_driver_from_control_input( struct bt_hid_state* state )
 	{
 		if( swerve_right_rate > 0 )
 		{
-			right_output -= swerve_right_rate / 2;
+			right_output -= swerve_right_rate;
 			right_output = clamp(right_output, 0, 128);
 		}
 		else if( swerve_right_rate < 0 )
 		{
-			left_output += swerve_right_rate / 2;
+			left_output += swerve_right_rate;
 			left_output = clamp(left_output, 0, 128);
 		}
 	}
@@ -53,12 +53,12 @@ static void update_motor_driver_from_control_input( struct bt_hid_state* state )
 	{
 		if( swerve_right_rate > 0 )
 		{
-			right_output += swerve_right_rate / 2;
+			right_output += swerve_right_rate;
 			right_output = clamp(right_output, -127, 0);
 		}
 		else if( swerve_right_rate < 0 )
 		{
-			left_output -= swerve_right_rate / 2;
+			left_output -= swerve_right_rate;
 			left_output = clamp(left_output, -127, 0);
 		}
 	}
