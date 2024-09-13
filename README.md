@@ -4,9 +4,7 @@
 
 This firmware repository supports the Raspberry Pi Pico W and the Playstation Dualshock 4 controller.
 
-![pi_pico_w](documents/images/pi_pico_w.jpg)
-
-![ds4](documents/images/ds4.jpg)
+![setup](documents/images/setup.png)
 
 ## Pre-Requisites
 
@@ -101,6 +99,10 @@ The pinout for the robot motor driver can be found in the `pin_definitions.h`. H
 #define PIN_RIGHT_MOTOR_INB 11  // GPO
 #define PIN_RIGHT_MOTOR_PWM 12  // PWM6 A 
 ```
+
+The wiring diagram can be seen below.
+
+![wiring](documents/images/wiring.png)
 
 After powering on the robot, the LED on the pico-w will be flashing.  This indicates that the controller is not connected.
 
