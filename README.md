@@ -2,6 +2,8 @@
 
 ## Overview
 
+Welcome to the Starter Robot software repository!  If you haven't yet seen it, please visit the CRFC page for the complete instructions on how to build your first robot [here](https://collegeroboticfootball.org/build/).
+
 This firmware repository supports the Raspberry Pi Pico W and the Playstation Dualshock 4 controller.
 
 ![setup](documents/images/setup.png)
@@ -37,13 +39,13 @@ brew install --cask gcc-arm-embedded
 Clone the repo:
 
 ```bash
-git clone https://github.com/ehunck/crfc-starter-robot.git
+git clone https://github.com/Collegiate-Robotic-Football-Conference/starter-robot-firmware.git
 ```
 
 or use SSH
 
 ```bash
-git clone git@github.com:ehunck/crfc-starter-robot.git
+git clone git@github.com:Collegiate-Robotic-Football-Conference/starter-robot-firmware.git
 ```
 
 Update all of the submodules (This pulls in the pico-sdk.)
@@ -52,9 +54,7 @@ Update all of the submodules (This pulls in the pico-sdk.)
 git submodule update --init --recursive
 ```
 
-This repository was setup by following the instructions here:
-
-https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html#quick-start-your-own-project
+This repository was setup by following the instructions [here](https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html#quick-start-your-own-project).
 
 ## Build the Project
 
@@ -70,7 +70,11 @@ cmake --build .
 You now have `main_app.elf` to load via a debugger, or `main_app.uf2` that can be installed and run on your Raspberry Pi Pico via drag and drop.
 
 To upload via USB, hold down the BOOTSEL button while plugging it in. This will mount a device called RPI-RP2 to copy your UF2 file into. See
-https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html for more detailed instructions on managing the device.
+[raspberry-pi-pico.html](https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html) for more detailed instructions on managing the device.
+
+## Prebuilt Firmware
+
+If you don't have time to build up the firmware yourself, you can go to the releases to find the latest pre-built binary.
 
 ## Develop with VSCode
 
@@ -112,13 +116,13 @@ Simultaneously press and hold the Playstation Center Button and the Share Button
 
 You can fork this porject and use it as a start for your own robot platforms.
 
-If you make improvements to this, feel free to open an issue and submit a pull request!  The maintainers will be happy to accept these contributions and merge your changes in to the repo as long as the functionality doesn't break the existing functionality.
+If you make improvements to this software, feel free to open an issue and submit a [pull request](https://github.com/Collegiate-Robotic-Football-Conference/starter-robot-firmware/pulls)!  The maintainers will be happy to accept these contributions and merge your changes in to the repo as long as the functionality doesn't break the existing functionality or add features that confuse new users.
 
-"Knock-off" Dual Shock 4 PS4 controllers may or may not work with this project.  Right now, only "official" controllers are supported.  Contributions related to supporting alternative "knock-off" controllers will be accepted so long as they don't break compatibility with the existing supported controllers.
+"Knock-off" Dual Shock 4 PS4 controllers may or may not work with this project.  Right now, only "official" PlayStation branded controllers are supported.  Contributions related to supporting alternative "knock-off" controllers will be accepted so long as they don't break compatibility with the existing supported controllers.
 
-If you find a bug, please open an issue to report it! The more detail the better. Help us find the solution as well!
+If you find a bug, please open an [issue](https://github.com/Collegiate-Robotic-Football-Conference/starter-robot-firmware/issues) to report it! The more detail the better. Help us find the solution as well!
 
-### New Features Not Yet Implemented
+Here are some ideas of new features that have not yet been implemented:
 
 - Simple settings storage for things like calibration and tuning values.
 - Store the remote address string of the controller in the settings to allow the robot to automatically connect on startup.

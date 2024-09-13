@@ -9,6 +9,7 @@
 #include "pico/multicore.h"
 #include "motor_driver.h"
 #include "bt_hid.h"
+#include "app_version.h"
 
 static int clamp(int val, int min, int max)
 {
@@ -25,7 +26,6 @@ static int clamp(int val, int min, int max)
 
 static void update_motor_driver_from_control_input( struct bt_hid_state* state )
 {
-
 	// printf("buttons: %04x, l: %d,%d, r: %d,%d, l2,r2: %d,%d hat: %d\n",
 	// 			state->buttons, state->lx, state->ly, state->rx, state->ry,
 	// 			state->l2, state->r2, state->hat);
@@ -104,6 +104,8 @@ void main(void)
 	struct bt_hid_state controller_state = {0};
 
 	stdio_init_all();
+	printf("Starting v%d.%d.%d\n", APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH);
+	
 	multicore_launch_core1(bt_main);
 	// Wait for init 
 	sleep_ms(1000);
